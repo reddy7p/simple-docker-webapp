@@ -38,7 +38,7 @@ allowEmptyResults: true
 stage('SonarQube Analysis') {
 steps {
 withSonarQubeEnv('SonarQube') { // configured under Manage
-Jenkins > System > SonarQube servers
+// Jenkins > System > SonarQube servers
 sh '''
 mvn -B sonar:sonar \
 -Dsonar.projectKey=simple-docker-webapp \

@@ -62,18 +62,30 @@ sh """
 """
 }
 }
+ 
 stage('Push to Docker Hub') {
-steps {
-withCredentials([usernamePassword(credentialsId:
-DOCKERHUB_CRED_ID, usernameVariable: 'DOCKER_USER', passwordVariable:
-'DOCKER_PASS')]) {
-sh '''
-echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --
-password-stdin
-                docker push ckalyani21/simple-docker-webapp:latest
-'''
-}
-}
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: "${DOCKERHUB_CRED_ID}",
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
+            )
+        ]) {
+            sh '''
+                set -e
+
+                printf '%s' "$DOCKER_PASS" | docker login \
+                    --username "$DOCKER_USER" \
+                    --password-stdin
+
+                docker push "${DOCKERHUB_REPO}:${IMAGE_TAG}"
+                docker push "${DOCKERHUB_REPO}:latest"
+
+                docker logout
+            '''
+        }
+    }
 }
 stage('Deploy') {
 steps {

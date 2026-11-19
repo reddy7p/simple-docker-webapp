@@ -107,22 +107,29 @@ stage('Deploy') {
         '''
     }
 }
+
 stage('Health Check') {
-steps {
-sh """
-for i in \$(seq 1 10); do
-if curl -sf
-http://localhost:${APP_PORT}/actuator/health; then
-echo 'App is healthy'
-exit 0
-fi
-echo 'Waiting for app to become healthy...'
-sleep 5
-done
-echo 'Health check failed after retries'
-exit 1
-"""
-}
+    steps {
+        sh '''
+            set -e
+
+            echo "Checking application health..."
+
+            for i in $(seq 1 10); do
+                if curl -sf http://localhost:8081/; then
+                    echo "Application is running successfully!"
+                    exit 0
+                fi
+
+                echo "Waiting for application..."
+                sleep 5
+            done
+
+            echo "Health check failed"
+            docker logs simple-docker-webapp
+            exit 1
+        '''
+    }
 }
 }
     post {

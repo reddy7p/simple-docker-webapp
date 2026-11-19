@@ -110,7 +110,7 @@ exit 1
 }
 post {
 success {
-echo "Built ${DOCKERHUB_REPO}:${IMAGE_TAG}, pushed to Docker Hub,
+echo "Image ${DOCKERHUB_REPO}:${IMAGE_TAG} pushed to Docker Hub successfully!"
 }
 and deployed locally"
 }

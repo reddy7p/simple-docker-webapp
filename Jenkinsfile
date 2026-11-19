@@ -56,8 +56,12 @@ waitForQualityGate abortPipeline: true
 }
 stage('Build Docker Image') {
 steps {
-sh "docker build -t ${DOCKERHUB_REPO}:${IMAGE_TAG} -t
-${DOCKERHUB_REPO}:latest ."
+sh """
+    docker build \
+        -t ${DOCKERHUB_REPO}:${IMAGE_TAG} \
+        -t ${DOCKERHUB_REPO}:latest \
+        .
+"""
 }
 }
 stage('Push to Docker Hub') {

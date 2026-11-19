@@ -87,16 +87,23 @@ stage('Push to Docker Hub') {
         }
     }
 }
+
 stage('Deploy') {
-steps {
-sh """
-docker pull ${DOCKERHUB_REPO}:latest
-docker stop ${CONTAINER_NAME} || true
-docker rm ${CONTAINER_NAME} || true
-docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:8080 -
--restart unless-stopped ${DOCKERHUB_REPO}:latest
-"""
-}
+    steps {
+        sh '''
+            set -e
+
+            docker pull "${DOCKERHUB_REPO}:latest"
+
+            docker stop simple-docker-webapp || true
+            docker rm simple-docker-webapp || true
+
+            docker run -d \
+                --name simple-docker-webapp \
+                -p 8080:8080 \
+                "${DOCKERHUB_REPO}:latest"
+        '''
+    }
 }
 stage('Health Check') {
 steps {

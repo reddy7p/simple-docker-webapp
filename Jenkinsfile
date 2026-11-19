@@ -110,9 +110,8 @@ exit 1
 }
 post {
 success {
-echo "Image ${DOCKERHUB_REPO}:${IMAGE_TAG} pushed to Docker Hub successfully!"
+ echo "Image ${DOCKERHUB_REPO}:${IMAGE_TAG} pushed to Docker Hub and deployed locally successfully!"
 }
-and deployed locally"
 }
 failure {
 echo 'Pipeline failed — check console output above.'

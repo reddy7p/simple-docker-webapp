@@ -1,10 +1,8 @@
-    pipeline {
-agent any
+pipeline {
+ agent any
 tools {
-maven 'Maven3' // name must match a Maven install under Manage
-Jenkins > Tools
-jdk 'JDK21' // name must match a JDK install under Manage
-Jenkins > Tools
+maven 'Maven3'
+jdk 'JDK21'
 }
 environment {
 DOCKERHUB_CRED_ID = 'dockerhub-credentials' // Jenkins

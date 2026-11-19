@@ -8,7 +8,7 @@ Jenkins > Tools
 }
 environment {
 DOCKERHUB_CRED_ID = 'dockerhub-credentials' // Jenkins
-credential ID (Docker Hub username/token)
+// credential ID (Docker Hub username/token)
 DOCKERHUB_REPO = 'ckalyani21/simple-docker-webapp'
 IMAGE_TAG = "${env.BUILD_NUMBER}"
 CONTAINER_NAME = 'simple-docker-webapp'

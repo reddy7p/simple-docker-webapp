@@ -108,14 +108,15 @@ exit 1
 }
 }
 }
-post {
-    success {
-        echo "Image ${DOCKERHUB_REPO}:${IMAGE_TAG} pushed to Docker Hub and deployed locally successfully!"
-    }
-    failure {
-        echo 'Pipeline failed - check console output above.'
-    }
-    always {
-        sh 'docker image prune -f || true'
+    post {
+        success {
+            echo "Image ${DOCKERHUB_REPO}:${IMAGE_TAG} pushed to Docker Hub and deployed locally successfully!"
+        }
+        failure {
+            echo 'Pipeline failed - check console output above.'
+        }
+        always {
+            sh 'docker image prune -f || true'
+        }
     }
 }

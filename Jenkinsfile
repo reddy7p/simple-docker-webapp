@@ -100,8 +100,10 @@ stage('Deploy') {
 
             docker run -d \
                 --name simple-docker-webapp \
-                -p 8080:8080 \
+                -p 8081:8080 \
                 "${DOCKERHUB_REPO}:latest"
+
+            docker ps
         '''
     }
 }
